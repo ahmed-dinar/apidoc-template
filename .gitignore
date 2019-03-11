@@ -1,0 +1,30 @@
+# Runtime data
+pids
+*.pid
+*.seed
+
+# IDE
+.idea
+.vscode
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Dependency directory
+node_modules
+
+# Optional npm cache directory
+.npm
+
+
+# .env
+.env
+
+api_data.*
+api_project.*

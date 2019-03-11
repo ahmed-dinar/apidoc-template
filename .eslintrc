@@ -1,0 +1,49 @@
+{
+  "rules": {
+    "max-len": 0,
+    "brace-style": 0,
+    "consistent-return": 0,
+    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
+    "indent": [
+      2,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "space-before-function-paren": [
+      2,
+      {
+        "anonymous": "always",
+        "named": "never"
+      }
+    ],
+    "no-use-before-define": [
+      2,
+      "nofunc"
+    ],
+    "comma-dangle": [
+      0
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "no-underscore-dangle": [
+      0
+    ]
+  },
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended"
+  ]
+}
