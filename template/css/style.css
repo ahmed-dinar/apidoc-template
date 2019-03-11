@@ -163,7 +163,7 @@ pre {
   background-color: #263238;
   color: #ffffff;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 0px;
   position: relative;
   margin: 10px 0 20px 0;
 }
@@ -634,4 +634,22 @@ body::-webkit-scrollbar-thumb
   right: 28px;
   top: 17px;
   background-color: #fff;
+}
+
+
+.col-no-padding {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.row-dark {
+  background: #2E3336;
+}
+
+.section-light {
+  background: #fff;
+}
+
+.section-dark {
+  color: #fff;
 }
