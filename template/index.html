@@ -150,24 +150,6 @@
           </p>
         {{/if}}
 
-        {{#if_gt article.examples.length compare=0}}
-          <ul class="nav nav-tabs nav-tabs-examples">
-            {{#each article.examples}}
-              <li{{#if_eq @index compare=0}} class="active"{{/if_eq}}>
-                <a href="#examples-{{../id}}-{{@index}}">{{title}}</a>
-              </li>
-            {{/each}}
-          </ul>
-
-          <div class="tab-content">
-          {{#each article.examples}}
-            <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="examples-{{../id}}-{{@index}}">
-              <pre class="prettyprint language-{{type}}" data-type="{{type}}"><code>{{content}}</code></pre>
-            </div>
-          {{/each}}
-          </div>
-        {{/if_gt}}
-
         {{subTemplate "article-param-block" params=article.header _hasType=_hasTypeInHeaderFields section="header"}}
         {{subTemplate "article-param-block" params=article.parameter _hasType=_hasTypeInParameterFields section="parameter"}}
         {{subTemplate "article-param-block" params=article.success _hasType=_hasTypeInSuccessFields section="success"}}
@@ -178,7 +160,23 @@
       </article>
     </div>
     <div class="col-md-6 section-dark">
-      <h1>{{article.title}}</h1>
+      {{#if_gt article.examples.length compare=0}}
+        <ul class="nav nav-tabs nav-tabs-examples">
+          {{#each article.examples}}
+            <li{{#if_eq @index compare=0}} class="active"{{/if_eq}}>
+              <a href="#examples-{{../id}}-{{@index}}">{{title}}</a>
+            </li>
+          {{/each}}
+        </ul>
+
+        <div class="tab-content">
+        {{#each article.examples}}
+          <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="examples-{{../id}}-{{@index}}">
+            <pre class="prettyprint language-{{type}}" data-type="{{type}}"><code>{{content}}</code></pre>
+          </div>
+        {{/each}}
+        </div>
+      {{/if_gt}}
     </div>
   </div>
 </script>

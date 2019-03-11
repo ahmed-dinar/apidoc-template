@@ -53,7 +53,7 @@
  *        -H "Authorization: Bearer thisisjwttokenshouldbeonger" \
  *        -d '{"name":"Jhon Snow", "username":"i_know_nothing"}'
  * 
- * @apiExample {nodeJS} node.js
+ * @apiExample {node.js} node.js
  *   const axios = require('axios');
  *   try {
  *      const response = await axios({
