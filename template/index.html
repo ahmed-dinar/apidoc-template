@@ -92,7 +92,7 @@
 
 <script id="template-sections" type="text/x-handlebars-template">
   <section id="api-{{group}}">
-    <h1>{{underscoreToSpace title}}</h1>
+    <h2>{{underscoreToSpace title}}</h2>
     {{#if description}}
       <p>{{{nl2br description}}}</p>
     {{/if}}
@@ -109,10 +109,10 @@
 
 <script id="template-article" type="text/x-handlebars-template">
   <div class="row row-dark">
-    <div class="col-md-6 col-no-padding section-light">
+    <div class="col-md-6  section-light">
       <article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}">
         <div class="pull-left">
-          <h1>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h1>
+          <h2>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h2>
         </div>
         {{#if template.withCompare}}
         <div class="pull-right">
@@ -135,7 +135,7 @@
           <p>{{{nl2br article.description}}}</p>
         {{/if}}
 
-        <pre data-type="{{toLowerCase article.type}}"><code><span class="typ">{{toUpperCase article.type}}</span> <span class="pln">{{article.url}}</span></code></pre>
+        <pre class="full-pre" data-type="{{toLowerCase article.type}}"><code><span class="typ">{{toUpperCase article.type}}</span> <span class="pln">{{article.url}}</span></code></pre>
 
         {{#if article.permission}}
           <p>
@@ -177,8 +177,34 @@
         {{/each}}
         </div>
       {{/if_gt}}
+
+      {{subTemplate "article-param-block-dark" params=article.success _hasType=_hasTypeInSuccessFields section="success"}}
+      {{subTemplate "article-param-block-dark" params=article.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
+
     </div>
   </div>
+</script>
+
+<script id="template-article-param-block-dark" type="text/x-handlebars-template">
+  {{#if params}}
+    {{#if_gt params.examples.length compare=0}}
+      <ul class="nav nav-tabs nav-tabs-examples">
+        {{#each params.examples}}
+          <li{{#if_eq @index compare=0}} class="active"{{/if_eq}}>
+            <a href="#{{../section}}-examples-{{../id}}-{{@index}}">{{title}}</a>
+          </li>
+        {{/each}}
+      </ul>
+
+      <div class="tab-content">
+      {{#each params.examples}}
+        <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="{{../section}}-examples-{{../id}}-{{@index}}">
+        <pre class="prettyprint language-{{type}}" data-type="{{type}}"><code>{{content}}</code></pre>
+        </div>
+      {{/each}}
+      </div>
+    {{/if_gt}}
+  {{/if}}
 </script>
 
 <script id="template-article-param-block" type="text/x-handlebars-template">
@@ -218,25 +244,6 @@
         </tbody>
       </table>
     {{/each}}
-
-    {{#if_gt params.examples.length compare=0}}
-      <ul class="nav nav-tabs nav-tabs-examples">
-        {{#each params.examples}}
-          <li{{#if_eq @index compare=0}} class="active"{{/if_eq}}>
-            <a href="#{{../section}}-examples-{{../id}}-{{@index}}">{{title}}</a>
-          </li>
-        {{/each}}
-      </ul>
-
-      <div class="tab-content">
-      {{#each params.examples}}
-        <div class="tab-pane{{#if_eq @index compare=0}} active{{/if_eq}}" id="{{../section}}-examples-{{../id}}-{{@index}}">
-        <pre class="prettyprint language-{{type}}" data-type="{{type}}"><code>{{content}}</code></pre>
-        </div>
-      {{/each}}
-      </div>
-    {{/if_gt}}
-
   {{/if}}
 </script>
 

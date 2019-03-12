@@ -729,7 +729,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         $(window).scrollspy('refresh')
       },
       google: {
-        families: ['Source Code Pro', 'Source Sans Pro:n4,n6,n7']
+        families: ['Ubuntu:n4,n5,n7', 'Source Code Pro:n4,n6,n7']
       }
     });
   }
