@@ -1,8 +1,8 @@
 # A beautiful template for [apiDoc](https://github.com/apidoc/apidoc)
 
-* Auto generate request and response example using [Faker.js](https://github.com/marak/Faker.js/)
-* Permission ``userGroup``
-* Sample request using ``ajax`` 
+## [Live Demo](https://ahmed-dinar.github.io/apidoc-template)
+
+![Demo screenshot](https://raw.githubusercontent.com/ahmed-dinar/apidoc-template/master/examples/assets/Screenshot1.png)
 
 ##### To make example documentation
 
