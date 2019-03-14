@@ -1,5 +1,16 @@
 define({ "api": [
   {
+    "type": "HEAD",
+    "url": "/api/account/:id",
+    "title": "Account head info",
+    "name": "Account_head_info",
+    "description": "<p>An admin can update account</p>",
+    "group": "Account",
+    "version": "1.0.0",
+    "filename": "examples/api.route.js",
+    "groupTitle": "Account"
+  },
+  {
     "type": "POST",
     "url": "/api/account/create",
     "title": "Create an account",
@@ -334,6 +345,33 @@ define({ "api": [
         }
       ]
     }
+  },
+  {
+    "type": "OPTIONS",
+    "url": "/api/account/:id",
+    "title": "Just a options demo",
+    "name": "Just_a_options_demo",
+    "description": "<p>An admin can update account</p>",
+    "group": "Account",
+    "version": "1.0.0",
+    "filename": "examples/api.route.js",
+    "groupTitle": "Account"
+  },
+  {
+    "type": "PATCH",
+    "url": "/api/account/:id",
+    "title": "Patch Update an account",
+    "name": "Patch_Update_an_account",
+    "description": "<p>An admin can update account</p>",
+    "group": "Account",
+    "version": "1.0.0",
+    "permission": [
+      {
+        "name": "PUT-updateFullAccount"
+      }
+    ],
+    "filename": "examples/api.route.js",
+    "groupTitle": "Account"
   },
   {
     "type": "PUT",

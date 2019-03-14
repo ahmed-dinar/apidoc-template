@@ -746,6 +746,10 @@ body::-webkit-scrollbar-thumb
   /* background: #607d8b; */
 }
 
+.full-pre .typ {
+  font-weight: 600;
+}
+
 button.version, button#version {
   padding: 3px 8px;
 }
@@ -771,7 +775,8 @@ button#version {
   width: 16%;
   color: #fff;
   padding: 2px;
-  margin-right: 2px;
+  padding-right: 0; 
+  margin-right: 10px;
   font-size: 11px;
   font-weight: 600;
 }
@@ -785,11 +790,23 @@ button#version {
 }
 
 .nav-list-item .typ-name.typ-put {
-  color: #607d8b;
+  color: #d500f9;
 }
 
 .nav-list-item .typ-name.typ-get {
   color: #4caf50;
+}
+
+.nav-list-item .typ-name.typ-patch {
+  color: #4a148c;
+}
+
+.nav-list-item .typ-name.typ-head {
+  color: #afb42b;
+}
+
+.nav-list-item .typ-name.typ-options {
+  color: #ff9800;
 }
 
 
@@ -802,11 +819,19 @@ pre .typ-post {
 }
 
 pre .typ-put {
-  color: #89bdff;
+  color:#d500f9;
 }
 
 pre .typ-get {
   color: #bffff9;
+}
+
+pre .typ-head {
+  color: #cddc39;
+}
+
+pre .typ-options {
+  color: #ff9800;
 }
 
 /* https://stackoverflow.com/a/19089780 */

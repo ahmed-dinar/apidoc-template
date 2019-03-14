@@ -775,6 +775,8 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         return 'DEL';
       case 'PATCH':
         return 'PATC';
+      case 'OPTIONS':
+        return 'OPT';
       case 'GET':
       case 'POST':
       case 'PUT':

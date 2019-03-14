@@ -236,3 +236,34 @@
  *   message: "No account found"
  * }
  */
+
+
+
+/**
+ *
+ * @api {PATCH} /api/account/:id Patch Update an account
+ * @apiName Patch Update an account
+ * @apiDescription An admin can update account
+ * @apiGroup Account
+ * @apiVersion 1.0.0
+ * @apiPermission PUT-updateFullAccount
+ */
+
+/**
+ *
+ * @api {HEAD} /api/account/:id Account head info
+ * @apiName Account head info
+ * @apiDescription An admin can update account
+ * @apiGroup Account
+ * @apiVersion 1.0.0
+ */
+
+
+/**
+ *
+ * @api {OPTIONS} /api/account/:id Just a options demo
+ * @apiName Just a options demo
+ * @apiDescription An admin can update account
+ * @apiGroup Account
+ * @apiVersion 1.0.0
+ */
