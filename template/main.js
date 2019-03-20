@@ -6,7 +6,7 @@ require.config({
     handlebarsExtended: './utils/handlebars_helper',
     jquery: './vendor/jquery.min',
     locales: './locales/locale',
-    lodash: './vendor/lodash.min',
+    lodash: './vendor/lodash.v4.17.11.min',
     pathToRegexp: './vendor/path-to-regexp/index',
     prettify: './vendor/prettify/prettify',
     semver: './vendor/semver.min',
@@ -288,6 +288,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
 
     // render all articles of a group
     api.forEach(function (entry) {
+      console.log('entry: ', entry);
       if (groupEntry === entry.group) {
         if (oldName !== entry.name) {
           // determine versions
@@ -332,6 +333,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         oldName = entry.name;
       }
     });
+
 
     // render Section with Articles
     var fields = {
@@ -380,7 +382,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
   function _hasTypeInFields(fields) {
     var result = false;
     $.each(fields, function (name) {
-      if (_.any(fields[name], function (item) {
+      if (_.some(fields[name], function (item) {
           return item.type;
         }))
         result = true;
@@ -431,6 +433,37 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
 
     // init modules
     sampleRequest.initDynamic();
+
+    var jsonTypes = ['string', 'number', 'integer', 'object', 'array', 'boolean', 'null', ''];
+    $('.json-schema').click(function (e) {
+      e.preventDefault();
+      var group = this.getAttribute('data-group');
+      var param = this.getAttribute('data-param');
+      var articleName = this.closest('article').getAttribute('data-name');
+      var indx = api.findIndex(function (entry) { return entry.name === articleName});
+      if (!group || !param || indx === -1) {
+        return;
+      }
+
+      var jsondata = api[indx][param].fields[group];
+      if (!jsondata) {
+        return;
+      }
+
+      console.log('jsondata: ', jsondata);
+
+      var jsonSchema = {};
+
+      jsondata.forEach(function(keys) {
+        console.log(keys.type, ' ', keys.field);
+        var dots = keys.field.split('.');
+        console.log(dots);
+       _.set(jsonSchema, keys.field, keys.type);
+      });
+
+      console.log(jsonSchema);
+
+    });
   }
   initDynamic();
 
@@ -731,7 +764,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         $(window).scrollspy('refresh');
       },
       google: {
-        families: ['Ubuntu:400,500,700', 'Roboto:400,600,500,700', 'Source+Code+Pro:400,600,700']
+        families: ['Lora:400,700', 'Oxygen:400,700', 'Roboto:400,600,500,700', 'Source+Code+Pro:400,600,700']
       }
     });
   }
@@ -784,4 +817,6 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         return methodType.toUpperCase();
     }
   }
+
+
 });

@@ -506,5 +506,164 @@
     },
     "filename": "examples/api.route.js",
     "groupTitle": "Account"
+  },
+  {
+    "type": "POST",
+    "url": "/api/user",
+    "title": "Register user",
+    "name": "Register_user",
+    "description": "<p>User registration</p>",
+    "group": "User",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Body": [
+          {
+            "group": "Body",
+            "type": "String",
+            "optional": true,
+            "field": "firstname",
+            "description": "<p>Optional Firstname of the User.</p>"
+          },
+          {
+            "group": "Body",
+            "type": "String",
+            "optional": false,
+            "field": "lastname",
+            "description": "<p>Mandatory Lastname.</p>"
+          },
+          {
+            "group": "Body",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>Mandatory username.</p>"
+          },
+          {
+            "group": "Body",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Mandatory password.</p>"
+          },
+          {
+            "group": "Body",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Mandatory email.</p>"
+          },
+          {
+            "group": "Body",
+            "type": "String",
+            "optional": false,
+            "field": "country",
+            "defaultValue": "BD",
+            "description": "<p>Mandatory with default value &quot;BD&quot;.</p>"
+          }
+        ],
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "age",
+            "defaultValue": "18",
+            "description": "<p>Optional Age with default 18.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "firstname",
+            "description": "<p>Firstname of the User.</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "lastname",
+            "description": "<p>Lastname.</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>username.</p>"
+          },
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "email",
+            "description": "<p>info.</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "email.address",
+            "description": "<p>email address.</p>"
+          },
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "email.verified",
+            "description": "<p>if email is verified.</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "email.verified.expire",
+            "description": "<p>if email is verified.</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "email.verified.value",
+            "description": "<p>if email is verified.</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "country",
+            "description": "<p>country</p>"
+          },
+          {
+            "group": "200",
+            "type": "Number",
+            "optional": false,
+            "field": "age",
+            "description": "<p>age</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error response</p>"
+          }
+        ]
+      }
+    },
+    "filename": "examples/api.route.js",
+    "groupTitle": "User"
   }
 ]

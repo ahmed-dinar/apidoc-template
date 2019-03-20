@@ -22,6 +22,10 @@ td.code {
   padding-top: 16px;
 }
 
+td p {
+  margin:  0 0 1px 10px;
+}
+
 p {
   color: #5f6368;
 }
@@ -32,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-family: "Roboto", monospace, sans-serif;
+  
   font-size: 2.5rem;
   margin: 0 0 10px 0;
   padding: 0;
@@ -66,14 +70,12 @@ section {
   padding: 30px 0;
 }
 
-section h1 {
-  font-family: "Roboto", monospace, sans-serif;
-
-
-
+section h1, section h2 {
+  font-family:  'Oxygen', sans-serif;
   padding-bottom: 14px;
   margin: 0 0 20px 0;
   padding: 0;
+  font-weight: 700;
 }
 
 article {
@@ -81,27 +83,29 @@ article {
 }
 
 article h1 {
-  font-family: "Roboto", monospace, sans-serif;
+  font-family: 'Oxygen', sans-serif;
   font-weight: 600;
   font-size: 24px;
   line-height: 26px;
+  font-weight: 700;
 }
 
 article h2 {
-  font-family: "Roboto", monospace, sans-serif;
-
-  
+  font-family: 'Oxygen', sans-serif;
   margin: 0 0 10px 0;
+  font-weight: 700;
 }
 
 article h3 {
-  font-family: "Roboto", monospace, sans-serif;
+  font-family: 'Oxygen', sans-serif;
   margin: 0 0 10px 0;
+  font-weight: 700;
 }
 
 article h4 {
-  font-family: "Roboto", monospace, sans-serif;
+  font-family: 'Oxygen', sans-serif;
   margin: 0 0 8px 0;
+  font-weight: 700;
 }
 
 table {
@@ -285,7 +289,7 @@ pre code.sample-request-response-json {
 
 .sidenav:hover {
   overflow-x: auto;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 
@@ -305,7 +309,7 @@ pre code.sample-request-response-json {
   padding: 5px 15px 5px 20px;
   font-family: "Roboto", monospace, sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   background-color: transparent;
   border: none;
   color: #424242;
@@ -329,6 +333,10 @@ pre code.sample-request-response-json {
 
 .sidenav > li.is-new a {
   border-left: #e5e5e5 4px solid;
+}
+
+.sidenav .nav-list-item, .sidenav div {
+  font-size: 13px;
 }
 
 /* ------------------------------------------------------------------------------------------
@@ -687,10 +695,11 @@ body::-webkit-scrollbar-thumb
 
 .sidenav-logo h3 {
   text-align: center;
+  margin-top: 8px;
 }
 
 .sidenav-search {
-  padding: 16px 20px 10px 20px;
+  padding: 2px 20px 10px 20px;
   width: 100%;
   background-color: #f8f9fb;
   z-index: 11;
@@ -712,7 +721,7 @@ body::-webkit-scrollbar-thumb
   height: 20px;
   text-align: center;
   right: 28px;
-  top: 17px;
+  top: 5px;
   background-color: #fff;
 }
 
@@ -790,7 +799,7 @@ button#version {
 }
 
 .nav-list-item .typ-name.typ-put {
-  color: #d500f9;
+  color: #4a148c;
 }
 
 .nav-list-item .typ-name.typ-get {
@@ -798,7 +807,7 @@ button#version {
 }
 
 .nav-list-item .typ-name.typ-patch {
-  color: #4a148c;
+  color: #d500f9;
 }
 
 .nav-list-item .typ-name.typ-head {
@@ -814,12 +823,12 @@ pre .typ-delete {
   color: #f44336;
 }
 
-pre .typ-post {
-  color: #7af9ba;
+pre .typ-patch {
+  color: #d500f9;
 }
 
 pre .typ-put {
-  color:#d500f9;
+  color:#89bdff;
 }
 
 pre .typ-get {
@@ -839,4 +848,9 @@ pre .typ-options {
   display: table-cell;
   float: none;
   width: 100%;
+}
+
+#project h1, #project h4, .sidenav-logo h3 {
+  font-family: 'Lora', serif;
+  font-weight: 700;
 }
