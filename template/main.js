@@ -6,7 +6,7 @@ require.config({
     handlebarsExtended: './utils/handlebars_helper',
     jquery: './vendor/jquery.min',
     locales: './locales/locale',
-    lodash: './vendor/lodash.v4.17.11.min',
+    lodash: './vendor/lodash.min',
     pathToRegexp: './vendor/path-to-regexp/index',
     prettify: './vendor/prettify/prettify',
     semver: './vendor/semver.min',
@@ -112,7 +112,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
     'ü': 'ue',
     'ö': 'oe',
     'ß': 'ss'
-  }; // TODO: remove in version 1.0
+  };
   $.each(apiByGroupAndName, function (index, groupEntries) {
     // get titles from the first entry of group[].name[] (name has versioning)
     var titles = [];
@@ -288,7 +288,6 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
 
     // render all articles of a group
     api.forEach(function (entry) {
-      console.log('entry: ', entry);
       if (groupEntry === entry.group) {
         if (oldName !== entry.name) {
           // determine versions
@@ -321,7 +320,6 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         if (entry.groupTitle)
           title = entry.groupTitle;
 
-        // TODO: make groupDescription compareable with older versions (not important for the moment)
         if (entry.groupDescription)
           description = entry.groupDescription;
 
@@ -333,7 +331,6 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         oldName = entry.name;
       }
     });
-
 
     // render Section with Articles
     var fields = {
@@ -382,7 +379,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
   function _hasTypeInFields(fields) {
     var result = false;
     $.each(fields, function (name) {
-      if (_.some(fields[name], function (item) {
+      if (_.any(fields[name], function (item) {
           return item.type;
         }))
         result = true;
@@ -433,37 +430,6 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
 
     // init modules
     sampleRequest.initDynamic();
-
-    var jsonTypes = ['string', 'number', 'integer', 'object', 'array', 'boolean', 'null', ''];
-    $('.json-schema').click(function (e) {
-      e.preventDefault();
-      var group = this.getAttribute('data-group');
-      var param = this.getAttribute('data-param');
-      var articleName = this.closest('article').getAttribute('data-name');
-      var indx = api.findIndex(function (entry) { return entry.name === articleName});
-      if (!group || !param || indx === -1) {
-        return;
-      }
-
-      var jsondata = api[indx][param].fields[group];
-      if (!jsondata) {
-        return;
-      }
-
-      console.log('jsondata: ', jsondata);
-
-      var jsonSchema = {};
-
-      jsondata.forEach(function(keys) {
-        console.log(keys.type, ' ', keys.field);
-        var dots = keys.field.split('.');
-        console.log(dots);
-       _.set(jsonSchema, keys.field, keys.type);
-      });
-
-      console.log(jsonSchema);
-
-    });
   }
   initDynamic();
 
@@ -617,7 +583,6 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
       };
 
       // add unique id
-      // TODO: replace all group-name-version in template with id.
       fields.article.id = fields.article.group + '-' + fields.article.name + '-' + fields.article.version;
       fields.article.id = fields.article.id.replace(/\./g, '_');
 
@@ -661,7 +626,6 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
       $('#sidenav li[data-group=\'' + group + '\'][data-name=\'' + name + '\'][data-version=\'' + currentVersion + '\']').addClass('has-modifications');
 
       $root.remove();
-      // TODO: on change main version or select the highest version re-render
     }
 
     initDynamic();
@@ -693,7 +657,6 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
    */
   function addArticleSettings(fields, entry) {
     // add unique id
-    // TODO: replace all group-name-version in template with id.
     fields.id = fields.article.group + '-' + fields.article.name + '-' + fields.article.version;
     fields.id = fields.id.replace(/\./g, '_');
 
@@ -764,7 +727,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         $(window).scrollspy('refresh');
       },
       google: {
-        families: ['Lora:400,700', 'Oxygen:400,700', 'Roboto:400,600,500,700', 'Source+Code+Pro:400,600,700']
+        families: ['Ubuntu:400,500,700', 'Roboto:400,600,500,700', 'Source+Code+Pro:400,600,700']
       }
     });
   }
@@ -817,6 +780,4 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         return methodType.toUpperCase();
     }
   }
-
-
 });
