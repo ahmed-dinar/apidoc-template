@@ -22,6 +22,10 @@ td.code {
   padding-top: 16px;
 }
 
+td p {
+  margin:  0 0 1px 10px;
+}
+
 p {
   color: #5f6368;
 }
@@ -66,41 +70,34 @@ section {
   padding: 30px 0;
 }
 
-section h1 {
-  font-family: "Roboto", monospace, sans-serif;
-
-
-
+section h1, section h2 {
+  font-family:  'Oxygen', sans-serif;
   padding-bottom: 14px;
   margin: 0 0 20px 0;
   padding: 0;
+  font-weight: 700;
 }
 
 article {
   padding: 14px 0 30px 0;
 }
 
+article h1, article h2, article h3, article h4 {
+  font-family: 'Oxygen', sans-serif;
+  font-weight: 700;
+}
+
 article h1 {
-  font-family: "Roboto", monospace, sans-serif;
   font-weight: 600;
   font-size: 24px;
   line-height: 26px;
 }
 
-article h2 {
-  font-family: "Roboto", monospace, sans-serif;
-
-  
-  margin: 0 0 10px 0;
-}
-
-article h3 {
-  font-family: "Roboto", monospace, sans-serif;
+article h2, article h3 {
   margin: 0 0 10px 0;
 }
 
 article h4 {
-  font-family: "Roboto", monospace, sans-serif;
   margin: 0 0 8px 0;
 }
 
@@ -270,7 +267,7 @@ pre code.sample-request-response-json {
   z-index: 10;
 
   padding-right: 0;
-  background-color: #f8f9fb;
+  background-color: #ffffff;
 
   -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
@@ -278,7 +275,7 @@ pre code.sample-request-response-json {
 
 .sidenav:hover {
   overflow-x: auto;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .sidenav > li > a {
@@ -297,7 +294,7 @@ pre code.sample-request-response-json {
   padding: 5px 15px 5px 20px;
   font-family: "Roboto", monospace, sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   background-color: transparent;
   border: none;
   color: rgb(59, 65, 81);
@@ -321,6 +318,10 @@ pre code.sample-request-response-json {
 
 .sidenav > li.is-new a {
   border-left: #e5e5e5 4px solid;
+}
+
+.sidenav .nav-list-item, .sidenav div {
+  font-size: 13px;
 }
 
 /* ------------------------------------------------------------------------------------------
@@ -646,6 +647,22 @@ body::-webkit-scrollbar-thumb
   background-color: #4c4c4c;
 }
 
+.modal-body::-webkit-scrollbar-track
+{
+  background-color: #F5F5F5;
+}
+
+.modal-body::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.modal-body::-webkit-scrollbar-thumb
+{
+  background-color: #4c4c4c;
+}
+
 /* ------------------------------------------------------------------------------------------
  * Side nav search
  * ------------------------------------------------------------------------------------------ */
@@ -657,7 +674,7 @@ body::-webkit-scrollbar-thumb
 
 .sidenav-logo {
   z-index: 12;
-  background-color: #f8f9fb;
+  background-color: #ffffff;
   width: 100%;
 }
 
@@ -669,12 +686,13 @@ body::-webkit-scrollbar-thumb
 
 .sidenav-logo h3 {
   text-align: center;
+  margin-top: 10px;
 }
 
 .sidenav-search {
-  padding: 16px 20px 10px 20px;
+  padding: 2px 20px 10px 20px;
   width: 100%;
-  background-color: #f8f9fb;
+  background-color: #ffffff;
   z-index: 11;
 }
 
@@ -694,7 +712,7 @@ body::-webkit-scrollbar-thumb
   height: 20px;
   text-align: center;
   right: 28px;
-  top: 19px;
+  top: 8px;
   background-color: #fff;
 }
 
@@ -715,13 +733,14 @@ body::-webkit-scrollbar-thumb
   margin-right: -10px;
   padding-left: 15px;
   border-radius: 5px;
+  padding-bottom: 7px;
 }
 
 .full-pre .typ {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   min-width: 80px;
-  padding: 6px 15px;
+  padding: 6px 8px 4px 8px;
   text-align: center;
   border-radius: 3px;
   text-shadow: 0 1px 0 rgba(0,0,0,.1);
@@ -754,9 +773,10 @@ button#version {
   color: #fff;
   padding: 2px;
   padding-right: 0; 
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   margin-right: 10px;
+  min-width: 37px;
 }
 
 .nav-list-item .typ-name.typ-get {
@@ -805,31 +825,31 @@ pre .typ-options {
 
 .pre-get {
   background: rgba(97,175,254,.1);
-  border: 1px solid #61affe;
+  border: 1px dotted #61affe;
 }
 .pre-post {
   background: rgba(73,204,144,.1);
-  border: 1px solid #49cc90;
+  border: 1px dotted #49cc90;
 }
 .pre-put {
   background: rgba(252,161,48,.1);
-  border: 1px solid #fca130;
+  border: 1px dotted #fca130;
 }
 .pre-patch {
   background: rgba(80,227,194,.1);
-  border: 1px solid #50e3c2;
+  border: 1px dotted #50e3c2;
 }
 .pre-delete {
   background: rgba(249,62,62,.1);
-  border: 1px solid #f93e3e;
+  border: 1px dotted #f93e3e;
 }
 .pre-head {
   background: rgba(144,18,254,.1);
-  border: 1px solid #9012fe;
+  border: 1px dotted #9012fe;
 }
 .pre-options {
   background: rgba(13,90,167,.1);
-  border: 1px solid #0d5aa7;
+  border: 1px dotted #0d5aa7;
 }
 
 .row {
@@ -855,4 +875,95 @@ pre .typ-options {
   font-size: 15px;
   font-weight: 600;
   color: rgb(59, 65, 81);
+}
+
+
+#project h1, #project h4, .sidenav-logo h3 {
+  font-family: 'Oxygen', sans-serif;
+  font-weight: 700;
+} 
+
+
+.btn {
+  border-radius: 0;
+}
+
+#json-pre {
+  background-color: #282a36;
+  padding: 0px 5px;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+/** *******************************************
+*  Animation
+*************************************************/
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+
+/** *******************************************
+*  MODAL https://codepen.io/dimbslmh/full/mKfCc
+*************************************************/
+
+.modal {
+  animation-duration: 0.7s;
+  animation-delay: 0s;
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-content {
+  border-radius: 3px;
+  -webkit-box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+  box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+  border: none;
+}
+
+.modal-footer button {
+  border: none;
+}
+
+#modal-clipboard {
+  position: absolute;
+  top: 14px;
+  right: 42px;
+  font-size: 23px;
+  cursor: pointer;
 }

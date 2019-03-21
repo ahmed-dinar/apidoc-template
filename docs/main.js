@@ -6,13 +6,14 @@ require.config({
     handlebarsExtended: './utils/handlebars_helper',
     jquery: './vendor/jquery.min',
     locales: './locales/locale',
-    lodash: './vendor/lodash.min',
+    lodash: './vendor/lodash.v4.17.11.min',
     pathToRegexp: './vendor/path-to-regexp/index',
     prettify: './vendor/prettify/prettify',
     semver: './vendor/semver.min',
     utilsSampleRequest: './utils/send_sample_request',
     webfontloader: './vendor/webfontloader',
-    list: './vendor/list.min'
+    list: './vendor/list.min',
+    clipboardJS: './vendor/clipboard.min'
   },
   shim: {
     bootstrap: {
@@ -47,11 +48,13 @@ require([ // eslint-disable-line
   'utilsSampleRequest',
   'semver',
   'webfontloader',
+  'clipboardJS',
   'bootstrap',
   'pathToRegexp',
   'list'
+  
 ],
-function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequest, semver, WebFont) {
+function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequest, semver, WebFont, clipboardJS) {
   // load google web fonts
   loadGoogleFontCss();
 
@@ -379,7 +382,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
   function _hasTypeInFields(fields) {
     var result = false;
     $.each(fields, function (name) {
-      if (_.any(fields[name], function (item) {
+      if (_.some(fields[name], function (item) {
           return item.type;
         }))
         result = true;
@@ -430,6 +433,94 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
 
     // init modules
     sampleRequest.initDynamic();
+
+    /** *  *  *   *  *   * *  *   *   *   *  *   *  *
+     *  show json schema in modal dialog
+     *  *  *   *  *   * *  *   *   *   *  *   *  * */
+    var jsonTypes = ['string', 'number', 'integer', 'float', 'double', 'object', 'array', 'boolean', 'null'];
+    $('.json-schema').click(function (e) {
+      e.preventDefault();
+      var group = this.getAttribute('data-group');
+      var param = this.getAttribute('data-param');
+      var articleName = this.closest('article').getAttribute('data-name');
+      var indx = api.findIndex(function (entry) { return entry.name === articleName});
+      if (!group || !param || indx === -1) {
+        return;
+      }
+
+      var jsondata = api[indx][param].fields[group];
+      if (!jsondata)
+        return;
+
+      var jsonSchema = {};
+      jsondata.forEach(function (keys) {
+        var type = keys.type.toLowerCase();
+        if (jsonTypes.includes(type) && type !== 'object') {
+          var res = expandDot(keys.field.split('.'), jsonSchema, type);
+          jsonSchema = res;
+        }
+      });
+
+      jsonSchema = '<pre class="prettyprint language-json" data-type="json"><code>' + syntaxHighlight({
+        "type": "object",
+        "properties": jsonSchema
+      }) + '</code></pre>';
+
+      $('#jsonModal .modal-title').html(articleName.split('_').join(' ') + ' - ' + param + ' ' + group);
+      $('#json-pre').html(jsonSchema);
+      $('#jsonModal').modal('toggle');
+      prettyPrint();
+    });
+
+
+    /** *  *  *   *  *   * *  *   *   *   *  *   *  *
+     *  click copy to clipboard
+     *  *  *   *  *   * *  *   *   *   *  *   *  * */
+    var permissionClipboard = new clipboardJS('.label-permission');
+    permissionClipboard.on('success', function (e) {
+      if (e.action === 'copy') {
+        $(e.trigger).tooltip({ trigger: 'manual', placement: 'bottom', title: 'Coped to clipboard!' });
+        $(e.trigger).tooltip('show');
+      }
+    });
+    $('.label-permission').on('shown.bs.tooltip', function (e) {
+      e.preventDefault();
+      setTimeout(function (el) {
+        $(el).tooltip('hide');
+      }, 800, this);
+    });
+
+    var uriClipboard = new clipboardJS('.full-pre', {
+      target: function (trigger) {
+        return $(trigger).children('.url')[0];
+      }
+    });
+    uriClipboard.on('success', function (e) {
+      if (e.action === 'copy') {
+        $(e.trigger).tooltip({ trigger: 'manual', placement: 'bottom', title: 'Coped to clipboard!' });
+        $(e.trigger).tooltip('show');
+      }
+    });
+    $('.full-pre').on('shown.bs.tooltip', function (e) {
+      e.preventDefault();
+      setTimeout(function (el) {
+        $(el).tooltip('hide');
+      }, 800, this);
+    });
+
+    var modalClipboard = new clipboardJS('#modal-clipboard');
+    modalClipboard.on('success', function (e) {
+      if (e.action === 'copy') {
+        $(e.trigger).tooltip({ trigger: 'manual', placement: 'bottom', title: 'Coped to clipboard!' });
+        $(e.trigger).tooltip('show');
+      }
+    });
+    $('#modal-clipboard').on('shown.bs.tooltip', function (e) {
+      e.preventDefault();
+      setTimeout(function (el) {
+        $(el).tooltip('hide');
+      }, 800, this);
+    });
   }
   initDynamic();
 
@@ -727,7 +818,7 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         $(window).scrollspy('refresh');
       },
       google: {
-        families: ['Ubuntu:400,500,700', 'Roboto:400,600,500,700', 'Source+Code+Pro:400,600,700']
+        families: ['Oxygen:400,700', 'Roboto:400,600,500,700', 'Source+Code+Pro:400,600,700']
       }
     });
   }
@@ -780,4 +871,57 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         return methodType.toUpperCase();
     }
   }
+
+  function expandDot(dots, obj, type) {
+    if (!obj || type === 'object' || dots.length === 0) {
+      return obj;
+    }
+  
+    var par = dots[0];
+    var rest = dots.slice(1);
+    
+    if (obj[par]) {
+      obj[par]['properties'] = expandDot(rest, obj[par]['properties'] ? obj[par]['properties'] : {}, type);
+    }
+    else if (rest.length > 0) {
+      var properties = expandDot(rest, {}, type);
+      obj[par] = {
+        "type": "object",
+        "properties": properties
+      };
+    }
+    else {
+      obj[par] = {
+        "type": type
+      };
+    }
+    
+    return obj;
+  }
+
+  /**
+   * https://stackoverflow.com/a/7220510/4839437
+   */
+  function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+      json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+      var cls = 'number';
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) {
+          cls = 'key';
+        } else {
+          cls = 'string';
+        }
+      } else if (/true|false/.test(match)) {
+        cls = 'boolean';
+      } else if (/null/.test(match)) {
+        cls = 'null';
+      }
+      return '<span class="' + cls + '">' + match + '</span>';
+    });
+  }
+  
 });

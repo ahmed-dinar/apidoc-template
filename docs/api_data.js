@@ -617,35 +617,35 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "email.verified",
-            "description": "<p>if email is verified.</p>"
+            "description": "<p>Email verification info</p>"
           },
           {
             "group": "200",
             "type": "String",
             "optional": false,
             "field": "email.verified.expire",
-            "description": "<p>if email is verified.</p>"
+            "description": "<p>Sent link expire date</p>"
           },
           {
             "group": "200",
-            "type": "String",
+            "type": "Boolean",
             "optional": false,
             "field": "email.verified.value",
-            "description": "<p>if email is verified.</p>"
+            "description": "<p>Already verified or not</p>"
           },
           {
             "group": "200",
             "type": "String",
             "optional": false,
             "field": "country",
-            "description": "<p>country</p>"
+            "description": "<p>User country code</p>"
           },
           {
             "group": "200",
             "type": "Number",
             "optional": false,
             "field": "age",
-            "description": "<p>age</p>"
+            "description": "<p>User age</p>"
           }
         ]
       }

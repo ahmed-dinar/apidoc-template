@@ -291,11 +291,11 @@
  * @apiSuccess (200) {String} username username.
  * @apiSuccess (200) {Object} email info.
  * @apiSuccess (200) {String} email.address email address.
- * @apiSuccess (200) {Object} email.verified if email is verified.
- * @apiSuccess (200) {String} email.verified.expire if email is verified.
- * @apiSuccess (200) {String} email.verified.value if email is verified.
- * @apiSuccess (200) {String} country country
- * @apiSuccess (200) {Number} age age
+ * @apiSuccess (200) {Object} email.verified Email verification info
+ * @apiSuccess (200) {String} email.verified.expire Sent link expire date
+ * @apiSuccess (200) {Boolean} email.verified.value Already verified or not
+ * @apiSuccess (200) {String} country User country code
+ * @apiSuccess (200) {Number} age User age
  *
  * @apiError {Object} error Error response
  *

@@ -10,10 +10,8 @@
   <link href="css/style.css" rel="stylesheet" media="screen, print">
   <link href="img/favicon.ico" rel="icon" type="image/x-icon">
   <script src="vendor/polyfill.js"></script>
-  <script src="vendor/clipboard.min.js"></script>
 
-  <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
-  <script src="https://unpkg.com/tippy.js@4"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -113,7 +111,7 @@
 
   <script id="template-sections" type="text/x-handlebars-template">
     <section id="api-{{group}}">
-    <h1>{{underscoreToSpace title}}</h1>
+    <h2>{{underscoreToSpace title}}</h2>
     {{#if description}}
       <p>{{{nl2br description}}}</p>
     {{/if}}
@@ -133,7 +131,7 @@
     <div class="col-md-7 no-float">
       <article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}">
         <div class="pull-left">
-          <h2>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h2>
+          <h3>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h3>
         </div>
         {{#if template.withCompare}}
         <div class="pull-right">
@@ -171,10 +169,10 @@
           </p>
         {{/if}}
 
-        {{subTemplate "article-param-block" params=article.header _hasType=_hasTypeInHeaderFields section="header"}}
-        {{subTemplate "article-param-block" params=article.parameter _hasType=_hasTypeInParameterFields section="parameter"}}
-        {{subTemplate "article-param-block" params=article.success _hasType=_hasTypeInSuccessFields section="success"}}
-        {{subTemplate "article-param-block" params=article.error _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
+        {{subTemplate "article-param-block" params=article.header paramType="header" _hasType=_hasTypeInHeaderFields section="header"}}
+        {{subTemplate "article-param-block" params=article.parameter paramType="parameter" _hasType=_hasTypeInParameterFields section="parameter"}}
+        {{subTemplate "article-param-block" params=article.success paramType="success" _hasType=_hasTypeInSuccessFields section="success"}}
+        {{subTemplate "article-param-block" params=article.error paramType="error" _col1="Name" _hasType=_hasTypeInErrorFields section="error"}}
 
         {{subTemplate "article-sample-request" article=article id=id}}
 
@@ -231,7 +229,12 @@
   <script id="template-article-param-block" type="text/x-handlebars-template">
     {{#if params}}
     {{#each params.fields}}
-      <h3 class="headers">{{__ @key}}</h3>
+      <div class="pull-left"><h4 class="headers">{{__ @key}}</h4></div>
+      <div class="pull-right">
+        <button class="btn btn-xs json-schema" data-group="{{__ @key}}" data-param="{{../../paramType}}" >json</button>
+      </div>
+
+
       <table class="table table-hover">
         <thead>
           <tr>
@@ -282,7 +285,7 @@
 
       {{#if article.header}}
         {{#if article.header.fields}}
-          <h3>{{__ "Headers"}}</h3>
+          <h4>{{__ "Headers"}}</h4>
           {{#each article.header.fields}}
             <div class="{{../id}}-sample-request-header-fields">
               {{#each this}}
@@ -301,7 +304,7 @@
 
       {{#if article.parameter}}
         {{#if article.parameter.fields}}
-          <h3>{{__ "Parameters"}}</h3>
+          <h4>{{__ "Parameters"}}</h4>
           {{#each article.parameter.fields}}
             <div class="{{../id}}-sample-request-param-fields">
               {{#each this}}
@@ -323,12 +326,12 @@
           </div>
 
           <div class="sample-request-response" style="display: none;">
-            <h3>
+            <h4>
               {{__ "Response"}}
               <button type="button" class="btn-link pull-right sample-request-clear">
                 <i class="glyphicon glyphicon-remove"></i>
               </button>
-            </h3>
+            </h4>
             <pre class="prettyprint language-json" data-type="json"><code class="sample-request-response-json"></code></pre>
           </div>
 
@@ -699,30 +702,25 @@
     </div>
   </div>
 
+
+  <!-- Modal -->
+<div class="modal animated fadeIn" id="jsonModal" tabindex="-1" role="dialog" aria-labelledby="jsonModalLabel">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <i id="modal-clipboard" class="material-icons">content_copy</i>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body" id="json-pre"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <script data-main="main.js" src="vendor/require.min.js"></script>
-  <script>
-    var clipboard = new ClipboardJS('.label-permission');
-    setTimeout(function () {
-      var instances = tippy('.label-permission', {
-        content: 'Copied to clipboard!',
-        trigger: 'manual',
-        duration: [100, 250],
-        distance: 5,
-        placement: 'bottom'
-      });
-      clipboard.on('success', function (e) {
-        if (e.action === 'copy') {
-          var indx = instances.findIndex(function (element) {
-            return element.reference.innerText === e.text;
-          });
-          if (indx !== -1) {
-            instances[indx].show();
-          }
-        }
-        e.clearSelection();
-      });
-    }, 3000);
-  </script>
 
 </body>
 
