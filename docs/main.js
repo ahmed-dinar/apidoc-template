@@ -13,7 +13,8 @@ require.config({
     utilsSampleRequest: './utils/send_sample_request',
     webfontloader: './vendor/webfontloader',
     list: './vendor/list.min',
-    clipboardJS: './vendor/clipboard.min'
+    clipboardJS: './vendor/clipboard.min',
+    copyToClipboard: './vendor/copyToClipboard'
   },
   shim: {
     bootstrap: {
@@ -49,12 +50,12 @@ require([ // eslint-disable-line
   'semver',
   'webfontloader',
   'clipboardJS',
+  'copyToClipboard',
   'bootstrap',
   'pathToRegexp',
   'list'
-  
 ],
-function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequest, semver, WebFont, clipboardJS) {
+function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequest, semver, WebFont, clipboardJS, copyToClipboard) {
   // load google web fonts
   loadGoogleFontCss();
 
@@ -461,14 +462,18 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
         }
       });
 
-      jsonSchema = '<pre class="prettyprint language-json" data-type="json"><code>' + syntaxHighlight({
+      jsonSchema = {
         "type": "object",
         "properties": jsonSchema
-      }) + '</code></pre>';
+      };
 
+      $('#preData').text(syntaxHighlight(jsonSchema, true));
+
+      jsonSchema = '<pre class="prettyprint language-json" data-type="json"><code>' + syntaxHighlight(jsonSchema, false) + '</code></pre>';
       $('#jsonModal .modal-title').html(articleName.split('_').join(' ') + ' - ' + param + ' ' + group);
       $('#json-pre').html(jsonSchema);
       $('#jsonModal').modal('toggle');
+
       prettyPrint();
     });
 
@@ -477,50 +482,39 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
      *  click copy to clipboard
      *  *  *   *  *   * *  *   *   *   *  *   *  * */
     var permissionClipboard = new clipboardJS('.label-permission');
-    permissionClipboard.on('success', function (e) {
-      if (e.action === 'copy') {
-        $(e.trigger).tooltip({ trigger: 'manual', placement: 'bottom', title: 'Coped to clipboard!' });
-        $(e.trigger).tooltip('show');
-      }
-    });
-    $('.label-permission').on('shown.bs.tooltip', function (e) {
-      e.preventDefault();
-      setTimeout(function (el) {
-        $(el).tooltip('hide');
-      }, 800, this);
-    });
+    permissionClipboard.on('success', showTooltip);
+    $('.label-permission').on('shown.bs.tooltip', hideTooltip);
 
     var uriClipboard = new clipboardJS('.full-pre', {
       target: function (trigger) {
         return $(trigger).children('.url')[0];
       }
     });
-    uriClipboard.on('success', function (e) {
-      if (e.action === 'copy') {
-        $(e.trigger).tooltip({ trigger: 'manual', placement: 'bottom', title: 'Coped to clipboard!' });
-        $(e.trigger).tooltip('show');
-      }
-    });
-    $('.full-pre').on('shown.bs.tooltip', function (e) {
-      e.preventDefault();
-      setTimeout(function (el) {
-        $(el).tooltip('hide');
-      }, 800, this);
-    });
+    uriClipboard.on('success', showTooltip);
+    $('.full-pre').on('shown.bs.tooltip', hideTooltip);
 
-    var modalClipboard = new clipboardJS('#modal-clipboard');
-    modalClipboard.on('success', function (e) {
+    $('.modal-clipboard').on('click', function () {
+      var code = $('#preData').text();
+      var copySuccess = copyToClipboard(code, document.getElementById('jsonModal'));
+      if (copySuccess) {
+        showTooltip({ action: 'copy', trigger: $('.modal-clipboard') });
+      }
+    });
+    $('.modal-clipboard').on('shown.bs.tooltip', hideTooltip);
+
+    function showTooltip(e) {
       if (e.action === 'copy') {
         $(e.trigger).tooltip({ trigger: 'manual', placement: 'bottom', title: 'Coped to clipboard!' });
         $(e.trigger).tooltip('show');
       }
-    });
-    $('#modal-clipboard').on('shown.bs.tooltip', function (e) {
+    }
+
+    function hideTooltip(e) {
       e.preventDefault();
       setTimeout(function (el) {
         $(el).tooltip('hide');
       }, 800, this);
-    });
+    }
   }
   initDynamic();
 
@@ -902,11 +896,16 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
   /**
    * https://stackoverflow.com/a/7220510/4839437
    */
-  function syntaxHighlight(json) {
+  function syntaxHighlight(json, raw) {
     if (typeof json != 'string') {
       json = JSON.stringify(json, undefined, 2);
     }
     json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    if (raw) {
+      return json;
+    }
+
     return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
       var cls = 'number';
       if (/^"/.test(match)) {

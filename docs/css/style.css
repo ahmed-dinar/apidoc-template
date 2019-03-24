@@ -3,6 +3,7 @@
  * ------------------------------------------------------------------------------------------ */
 body {
   color: #212529;
+  background-color: #ffffff;
 }
 
 body, p, a, div, th, td {
@@ -895,6 +896,11 @@ pre .typ-options {
   overflow: auto;
 }
 
+.json-schema {
+  /* box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2); */
+  background: #ffffff;
+}
+
 /** *******************************************
 *  Animation
 *************************************************/
@@ -928,12 +934,21 @@ pre .typ-options {
 *  MODAL https://codepen.io/dimbslmh/full/mKfCc
 *************************************************/
 
+
 .modal {
   animation-duration: 0.7s;
   animation-delay: 0s;
   text-align: center;
   padding: 0!important;
 }
+
+/* .modal-header, 
+.modal-footer {
+  background: #353847;
+  color: #f9f9f9;
+  border: none;
+}
+ */
 
 .modal:before {
   content: '';
@@ -958,12 +973,15 @@ pre .typ-options {
 
 .modal-footer button {
   border: none;
+  background: transparent;
+  color: gray;
 }
 
-#modal-clipboard {
+.modal-clipboard {
   position: absolute;
   top: 14px;
   right: 42px;
   font-size: 23px;
   cursor: pointer;
+  color: #878787;
 }
