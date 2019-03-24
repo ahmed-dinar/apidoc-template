@@ -6,7 +6,7 @@ define([], function() {
     if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
       var textArea = document.createElement("textarea");
       // Place in top-left corner of screen regardless of scroll position.
-      textArea.style.position = 'absolute';
+      textArea.style.position = 'fixed';
       textArea.style.left = '-9999px';
     
       // Ensure it has a small width and height. Setting to 1px / 1em
