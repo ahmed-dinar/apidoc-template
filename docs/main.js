@@ -867,7 +867,23 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
   }
 
   function expandDot(dots, obj, type) {
-    if (!obj || type === 'object' || dots.length === 0) {
+    if (!obj || dots.length === 0) {
+      return obj;
+    }
+
+    if (type === 'object') {
+      obj[dots[0]] = {
+        "type": "object",
+        "properties": {}
+      };
+      return obj;
+    }
+    
+    if (type === 'array') {
+      obj[dots[0]] = {
+        "type": "array",
+        "items": {}
+      };
       return obj;
     }
   
@@ -875,7 +891,12 @@ function ($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequ
     var rest = dots.slice(1);
     
     if (obj[par]) {
-      obj[par]['properties'] = expandDot(rest, obj[par]['properties'] ? obj[par]['properties'] : {}, type);
+      if (obj[par].type && obj[par].type === 'array') {
+        obj[par]['items'] = expandDot(rest, obj[par]['items'] ? obj[par]['items'] : {}, type);
+      }
+      else {
+        obj[par]['properties'] = expandDot(rest, obj[par]['properties'] ? obj[par]['properties'] : {}, type);
+      }
     }
     else if (rest.length > 0) {
       var properties = expandDot(rest, {}, type);

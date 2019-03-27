@@ -301,4 +301,20 @@
  *
  */
 
+/**
+ *
+ * @api {POST} /api/array Just an array of object
+ * @apiName Just an array of object
+ * @apiDescription Just an array of object test
+ * @apiGroup Test
+ * @apiVersion 1.0.0
+ *
+ * @apiSuccess (200) {Array} cars List of car manufacturers
+ * @apiSuccess (200) {String} cars.manufacturer Name of car manufacturers
+ * @apiSuccess (200) {String} cars.logo Logo of car manufacturers
+ *
+ * @apiError {Object} error Error response
+ *
+ */
+
 

@@ -509,6 +509,57 @@
   },
   {
     "type": "POST",
+    "url": "/api/array",
+    "title": "Just an array of object",
+    "name": "Just_an_array_of_object",
+    "description": "<p>Just an array of object test</p>",
+    "group": "Test",
+    "version": "1.0.0",
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Array",
+            "optional": false,
+            "field": "cars",
+            "description": "<p>List of car manufacturers</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "cars.manufacturer",
+            "description": "<p>Name of car manufacturers</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "cars.logo",
+            "description": "<p>Logo of car manufacturers</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "Object",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error response</p>"
+          }
+        ]
+      }
+    },
+    "filename": "examples/api.route.js",
+    "groupTitle": "Test"
+  },
+  {
+    "type": "POST",
     "url": "/api/user",
     "title": "Register user",
     "name": "Register_user",
