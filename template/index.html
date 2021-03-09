@@ -17,10 +17,8 @@
 <body>
 
   <script id="template-sidenav" type="text/x-handlebars-template">
-    <nav id="scrollingNav">
-
-    <ul class="sidenav nav nav-list list col-md-2">
-
+    <nav id="scrollingNav" class="col-md-2">
+    
     <div class="row">
       <div class="sidenav-logo col-md-2">
         <img src="img/logo.png" />
@@ -35,6 +33,8 @@
         <span class="search-reset">&#10005;</span>
       </div>
     </div>
+
+    <ul class="sidenav nav nav-list list col-md-2">
 
     {{#each nav}}
       {{#if title}}
