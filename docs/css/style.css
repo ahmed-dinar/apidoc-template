@@ -20,7 +20,8 @@ td.code {
 }
 
 #content {
-  padding-top: 16px;
+  /* padding-top: 16px; */
+  padding: 16px 40px;
 }
 
 td p {
@@ -256,7 +257,8 @@ pre code.sample-request-response-json {
 /* ------------------------------------------------------------------------------------------
  * Sidenav
  * ------------------------------------------------------------------------------------------ */
-.sidenav {
+
+#scrollingNav {
   margin: 0;
   padding: 20px 20px 20px 0px;
   position: fixed;
@@ -266,12 +268,28 @@ pre code.sample-request-response-json {
   overflow-x: hidden;
   overflow-y: hidden;
   z-index: 10;
-
   padding-right: 0;
   background-color: #ffffff;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
 
-  -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+.sidenav {
+  margin: 0;
+  margin-top: 10px;
+  padding: 10px 0px 20px 0px;
+  position: fixed;
+  top: 180px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  z-index: 10;
+  /* padding-right: 0; */
+  border-top: 4px solid lightgray;
+  /* background-color: #ffffff; */
+  /* -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); */
+  /* box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); */
 }
 
 .sidenav:hover {
